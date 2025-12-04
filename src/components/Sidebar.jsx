@@ -5,7 +5,7 @@ import { useSidebar } from '../context/SidebarContext';
 import {
     LayoutDashboard, Bell, Shield, Map, HandHeart, Building2, Users,
     FileText, BookOpen, Heart, Activity, DollarSign, Package, Zap,
-    Cloud, AlertTriangle, MessageSquare, Phone, Globe, Menu, X, ChevronRight
+    Cloud, AlertTriangle, MessageSquare, Phone, Globe, Menu, X, ChevronRight, ShieldCheck
 } from 'lucide-react';
 
 const Sidebar = () => {
@@ -30,6 +30,7 @@ const Sidebar = () => {
         { path: '/weather', label: t('nav.weather'), icon: <Cloud size={20} /> },
         { path: '/multi-hazard', label: t('nav.multiHazard'), icon: <AlertTriangle size={20} /> },
         { path: '/community', label: t('nav.community'), icon: <MessageSquare size={20} /> },
+        { path: '/admin', label: 'Admin Panel', icon: <ShieldCheck size={20} />, special: true },
     ];
 
     const isActive = (path) => location.pathname === path;
@@ -75,7 +76,8 @@ const Sidebar = () => {
                             to={item.path}
                             style={{
                                 ...styles.navLink,
-                                ...(isActive(item.path) ? styles.navLinkActive : {})
+                                ...(isActive(item.path) ? styles.navLinkActive : {}),
+                                ...(item.special ? styles.navLinkSpecial : {})
                             }}
                             title={collapsed ? item.label : ''}
                         >
@@ -213,6 +215,13 @@ const styles = {
     navLinkActive: {
         background: 'var(--color-emergency)',
         color: 'white',
+    },
+    navLinkSpecial: {
+        marginTop: '0.5rem',
+        borderTop: '1px solid var(--glass-border)',
+        paddingTop: '1rem',
+        background: 'linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(153, 27, 27, 0.1) 100%)',
+        border: '1px solid rgba(220, 38, 38, 0.3)',
     },
     navIcon: {
         display: 'flex',
