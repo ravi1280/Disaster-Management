@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
 import { SidebarProvider, useSidebar } from './context/SidebarContext';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
+import LoadingScreen from './components/LoadingScreen';
 
 // Pages
 import Dashboard from './pages/Dashboard';
@@ -24,6 +25,21 @@ import MultiHazardSupport from './pages/MultiHazardSupport';
 import CommunityForums from './pages/CommunityForums';
 
 function App() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Simulate loading time for resources
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000); // 2 seconds loading time
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return <LoadingScreen />;
+    }
+
     return (
         <LanguageProvider>
             <SidebarProvider>
