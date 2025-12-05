@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { demoResources, districts } from '../data/demoData';
-import { Hospital, Shield, Flame, Home, Phone, MapPin } from 'lucide-react';
+import { Hospital, Shield, Flame, Home, Phone, MapPin, Heart, Plus, Package } from 'lucide-react';
 
 const ResourceDirectory = () => {
     const { t } = useLanguage();
@@ -14,6 +14,10 @@ const ResourceDirectory = () => {
             case 'police': return <Shield size={24} />;
             case 'fire': return <Flame size={24} />;
             case 'shelter': return <Home size={24} />;
+            case 'ambulance': return <Hospital size={24} />;
+            case 'bloodbank': return <Heart size={24} />;
+            case 'pharmacy': return <Plus size={24} />;
+            case 'supplies': return <Package size={24} />;
             default: return <Phone size={24} />;
         }
     };
@@ -38,6 +42,10 @@ const ResourceDirectory = () => {
                     <option value="fire">Fire Departments</option>
                     <option value="shelter">Shelters</option>
                     <option value="relief">Relief Organizations</option>
+                    <option value="ambulance">Ambulance Services</option>
+                    <option value="bloodbank">Blood Banks</option>
+                    <option value="pharmacy">Pharmacies</option>
+                    <option value="supplies">Emergency Supplies</option>
                 </select>
 
                 <select className="form-select" value={districtFilter} onChange={(e) => setDistrictFilter(e.target.value)}>
