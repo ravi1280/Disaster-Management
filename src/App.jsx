@@ -24,6 +24,7 @@ import WeatherTracking from './pages/WeatherTracking';
 import MultiHazardSupport from './pages/MultiHazardSupport';
 import CommunityForums from './pages/CommunityForums';
 import AdminPanel from './pages/AdminPanel';
+import ContactsPage from './pages/ContactsPage';
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -86,6 +87,7 @@ const AppContent = () => {
                         <Route path="/weather" element={<WeatherTracking />} />
                         <Route path="/multi-hazard" element={<MultiHazardSupport />} />
                         <Route path="/community" element={<CommunityForums />} />
+                        <Route path="/contacts" element={<ContactsPage />} />
                         <Route path="/admin" element={<AdminPanel />} />
                     </Routes>
                 </main>
