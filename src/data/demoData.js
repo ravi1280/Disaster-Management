@@ -344,8 +344,10 @@ export const demoMissingPersons = [
         id: 1,
         name: 'Saman Kumara',
         age: 45,
+        gender: 'Male',
         lastSeen: 'Kolonnawa, Colombo',
-        description: 'Wearing blue shirt, black trousers',
+        lastSeenDate: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(),
+        description: 'Wearing blue shirt, black trousers. Medium build, short black hair.',
         contactPerson: 'Nimal Kumara',
         contactNumber: '+94 77 888 9999',
         reportedAt: new Date(Date.now() - 8 * 60 * 60 * 1000)
@@ -354,8 +356,10 @@ export const demoMissingPersons = [
         id: 2,
         name: 'Kumari Perera',
         age: 32,
+        gender: 'Female',
         lastSeen: 'Nanu Oya, Nuwara Eliya',
-        description: 'Wearing red saree',
+        lastSeenDate: new Date(Date.now() - 15 * 60 * 60 * 1000).toISOString(),
+        description: 'Wearing red saree. Long black hair, slim build.',
         contactPerson: 'Sunil Perera',
         contactNumber: '+94 71 777 8888',
         reportedAt: new Date(Date.now() - 15 * 60 * 60 * 1000)
