@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
 import { SidebarProvider, useSidebar } from './context/SidebarContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
+import AuthModal from './components/AuthModal';
 
 // Pages
 import Dashboard from './pages/Dashboard';
@@ -43,57 +45,68 @@ function App() {
     }
 
     return (
-        <LanguageProvider>
-            <SidebarProvider>
-                <Router>
-                    <AppContent />
-                </Router>
-            </SidebarProvider>
-        </LanguageProvider>
+        <AuthProvider>
+            <LanguageProvider>
+                <SidebarProvider>
+                    <Router>
+                        <AppContent />
+                    </Router>
+                </SidebarProvider>
+            </LanguageProvider>
+        </AuthProvider>
     );
 }
 
 const AppContent = () => {
     const { collapsed } = useSidebar();
+    const { isAuthenticated, loading } = useAuth();
+
+    // Show loading while checking authentication
+    if (loading) {
+        return null;
+    }
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh' }}>
-            <Sidebar />
-            <div 
-                className="main-content"
-                style={{
-                    flex: 1,
-                    marginLeft: collapsed ? '80px' : '280px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    transition: 'margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    width: '100%',
-                }}>
-                <main style={{ flex: 1, width: '100%' }}>
-                    <Routes>
-                        <Route path="/" element={<Dashboard />} />
-                        <Route path="/alerts" element={<AlertSystem />} />
-                        <Route path="/safety" element={<SafetyCheckIn />} />
-                        <Route path="/map" element={<DisasterMap />} />
-                        <Route path="/help" element={<HelpRequest />} />
-                        <Route path="/resources" element={<ResourceDirectory />} />
-                        <Route path="/volunteer" element={<VolunteerRegistration />} />
-                        <Route path="/reporting" element={<CrowdsourcedReporting />} />
-                        <Route path="/preparedness" element={<Preparedness />} />
-                        <Route path="/health" element={<HealthSupport />} />
-                        <Route path="/donation" element={<DonationSystem />} />
-                        <Route path="/lost-found" element={<LostAndFound />} />
-                        <Route path="/utilities" element={<UtilityStatus />} />
-                        <Route path="/weather" element={<WeatherTracking />} />
-                        <Route path="/multi-hazard" element={<MultiHazardSupport />} />
-                        <Route path="/community" element={<CommunityForums />} />
-                        <Route path="/contacts" element={<ContactsPage />} />
-                        <Route path="/admin" element={<AdminPanel />} />
-                    </Routes>
-                </main>
-                <Footer />
+        <>
+            {!isAuthenticated && <AuthModal />}
+            <div style={{ display: 'flex', minHeight: '100vh' }}>
+                <Sidebar />
+                <div
+                    className="main-content"
+                    style={{
+                        flex: 1,
+                        marginLeft: collapsed ? '80px' : '280px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        transition: 'margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        width: '100%',
+                    }}>
+                    <main style={{ flex: 1, width: '100%' }}>
+                        <Routes>
+                            <Route path="/" element={<Dashboard />} />
+                            <Route path="/alerts" element={<AlertSystem />} />
+                            <Route path="/safety" element={<SafetyCheckIn />} />
+                            <Route path="/map" element={<DisasterMap />} />
+                            <Route path="/help" element={<HelpRequest />} />
+                            <Route path="/resources" element={<ResourceDirectory />} />
+                            <Route path="/volunteer" element={<VolunteerRegistration />} />
+                            <Route path="/reporting" element={<CrowdsourcedReporting />} />
+                            <Route path="/preparedness" element={<Preparedness />} />
+                            <Route path="/health" element={<HealthSupport />} />
+                            <Route path="/donation" element={<DonationSystem />} />
+                            <Route path="/lost-found" element={<LostAndFound />} />
+                            <Route path="/utilities" element={<UtilityStatus />} />
+                            <Route path="/weather" element={<WeatherTracking />} />
+                            <Route path="/multi-hazard" element={<MultiHazardSupport />} />
+                            <Route path="/community" element={<CommunityForums />} />
+                            <Route path="/contacts" element={<ContactsPage />} />
+                            <Route path="/admin" element={<AdminPanel />} />
+                        </Routes>
+                    </main>
+                    <Footer />
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
