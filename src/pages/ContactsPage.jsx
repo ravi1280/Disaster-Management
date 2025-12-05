@@ -25,15 +25,7 @@ const ContactsPage = () => {
                 </p>
             </div>
 
-            <div style={styles.infoCard}>
-                <h3 style={styles.infoTitle}>Why Add Emergency Contacts?</h3>
-                <ul style={styles.infoList}>
-                    <li>✅ Quickly notify loved ones during emergencies</li>
-                    <li>✅ Share your safety status with one click</li>
-                    <li>✅ Let family know your location during disasters</li>
-                    <li>✅ Receive support and help when needed</li>
-                </ul>
-            </div>
+
 
             <ContactsManager
                 initialContacts={sampleContacts}
