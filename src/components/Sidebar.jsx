@@ -5,7 +5,7 @@ import { useSidebar } from '../context/SidebarContext';
 import {
     LayoutDashboard, Bell, Shield, Map, HandHeart, Building2, Users,
     FileText, BookOpen, Heart, Activity, DollarSign, Package, Zap,
-    Cloud, AlertTriangle, MessageSquare, Phone, Globe, Menu, X, ChevronRight, ShieldCheck
+    Cloud, AlertTriangle, MessageSquare, Phone, Globe, Menu, X, ChevronRight, ShieldCheck, UserCircle
 } from 'lucide-react';
 
 const Sidebar = () => {
@@ -30,6 +30,7 @@ const Sidebar = () => {
         { path: '/weather', label: t('nav.weather'), icon: <Cloud size={20} /> },
         { path: '/multi-hazard', label: t('nav.multiHazard'), icon: <AlertTriangle size={20} /> },
         { path: '/community', label: t('nav.community'), icon: <MessageSquare size={20} /> },
+        { path: '/contacts', label: 'Emergency Contacts', icon: <UserCircle size={20} /> },
         { path: '/admin', label: 'Admin Panel', icon: <ShieldCheck size={20} />, special: true },
     ];
 
