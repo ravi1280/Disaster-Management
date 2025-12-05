@@ -1,3 +1,5 @@
+/* Import DM Sans Font */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 :root {
   /* Emergency Color Palette */
   --color-emergency: #dc2626;
@@ -60,7 +62,7 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -517,3 +519,4 @@ a:hover {
 .main-content {
   transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
+
