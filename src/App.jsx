@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
 import { SidebarProvider, useSidebar } from './context/SidebarContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -57,8 +57,31 @@ function App() {
     );
 }
 
-const AppContent = () => {
+const UserLayout = () => {
     const { collapsed } = useSidebar();
+    return (
+        <div style={{ display: 'flex', minHeight: '100vh' }}>
+            <Sidebar />
+            <div
+                className="main-content"
+                style={{
+                    flex: 1,
+                    marginLeft: collapsed ? '80px' : '280px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    transition: 'margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    width: '100%',
+                }}>
+                <main style={{ flex: 1, width: '100%' }}>
+                    <Outlet />
+                </main>
+                <Footer />
+            </div>
+        </div>
+    );
+};
+
+const AppContent = () => {
     const { isAuthenticated, loading } = useAuth();
 
     // Show loading while checking authentication
@@ -69,43 +92,31 @@ const AppContent = () => {
     return (
         <>
             {!isAuthenticated && <AuthModal />}
-            <div style={{ display: 'flex', minHeight: '100vh' }}>
-                <Sidebar />
-                <div
-                    className="main-content"
-                    style={{
-                        flex: 1,
-                        marginLeft: collapsed ? '80px' : '280px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        transition: 'margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                        width: '100%',
-                    }}>
-                    <main style={{ flex: 1, width: '100%' }}>
-                        <Routes>
-                            <Route path="/" element={<Dashboard />} />
-                            <Route path="/alerts" element={<AlertSystem />} />
-                            <Route path="/safety" element={<SafetyCheckIn />} />
-                            <Route path="/map" element={<DisasterMap />} />
-                            <Route path="/help" element={<HelpRequest />} />
-                            <Route path="/resources" element={<ResourceDirectory />} />
-                            <Route path="/volunteer" element={<VolunteerRegistration />} />
-                            <Route path="/reporting" element={<CrowdsourcedReporting />} />
-                            <Route path="/preparedness" element={<Preparedness />} />
-                            <Route path="/health" element={<HealthSupport />} />
-                            <Route path="/donation" element={<DonationSystem />} />
-                            <Route path="/lost-found" element={<LostAndFound />} />
-                            <Route path="/utilities" element={<UtilityStatus />} />
-                            <Route path="/weather" element={<WeatherTracking />} />
-                            <Route path="/multi-hazard" element={<MultiHazardSupport />} />
-                            <Route path="/community" element={<CommunityForums />} />
-                            <Route path="/contacts" element={<ContactsPage />} />
-                            <Route path="/admin" element={<AdminPanel />} />
-                        </Routes>
-                    </main>
-                    <Footer />
-                </div>
-            </div>
+            <Routes>
+                {/* Admin Route - Standalone Layout */}
+                <Route path="/admin/*" element={<AdminPanel />} />
+
+                {/* User Routes - Wrapped in UserLayout */}
+                <Route element={<UserLayout />}>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/alerts" element={<AlertSystem />} />
+                    <Route path="/safety" element={<SafetyCheckIn />} />
+                    <Route path="/map" element={<DisasterMap />} />
+                    <Route path="/help" element={<HelpRequest />} />
+                    <Route path="/resources" element={<ResourceDirectory />} />
+                    <Route path="/volunteer" element={<VolunteerRegistration />} />
+                    <Route path="/reporting" element={<CrowdsourcedReporting />} />
+                    <Route path="/preparedness" element={<Preparedness />} />
+                    <Route path="/health" element={<HealthSupport />} />
+                    <Route path="/donation" element={<DonationSystem />} />
+                    <Route path="/lost-found" element={<LostAndFound />} />
+                    <Route path="/utilities" element={<UtilityStatus />} />
+                    <Route path="/weather" element={<WeatherTracking />} />
+                    <Route path="/multi-hazard" element={<MultiHazardSupport />} />
+                    <Route path="/community" element={<CommunityForums />} />
+                    <Route path="/contacts" element={<ContactsPage />} />
+                </Route>
+            </Routes>
         </>
     );
 };
